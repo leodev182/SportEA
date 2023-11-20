@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { MyApp, Navegador, Landing } from "./index.js";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="navegador">
+        <Navegador />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="home centrar">
+        <Landing
+          url=" https://apiv2.allsportsapi.com/football/?&met=Teams&teamId=96&APIkey=dc9ad7cd5e3dc0a94003754e3b5aa599b5348e1c71ebc2d52e30530a13b666e8"
+          logo="https://thumbs.dreamstime.com/b/el-emblema-del-club-de-f%C3%BAtbol-juventus-italia-aislada-fondo-blanco-165419494.jpg"
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="footBall">
+        <MyApp />
+      </div>
+      <div className="baseBall">
+        <MyApp />
+      </div>
+      <div className="">
+        <MyApp />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
