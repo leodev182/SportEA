@@ -1,5 +1,4 @@
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
@@ -20,17 +19,6 @@ export const Navegador = () => {
             <Nav.Link href="#baseBall">Baseball</Nav.Link>
             <Nav.Link href="#pricing">Tennis</Nav.Link>
           </Nav>
-          <div
-            style={{
-              width: "40%",
-            }}
-          >
-            <Form.Control
-              type="text"
-              id="inputPassword5"
-              placeholder="Buscar"
-            />
-          </div>
         </Container>
       </Navbar>
     </>

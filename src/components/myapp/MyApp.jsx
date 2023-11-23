@@ -1,13 +1,84 @@
-import Container from "react-bootstrap/esm/Container";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 
-export const MyApp = () => {
+import { useEffect, useState } from "react";
+import { Buscador } from "../buscador/Buscador";
+// import Spinner from "react-bootstrap/Spinner";
+
+export const MyApp = ({ url }) => {
+  const [loading, setLoading] = useState(true);
+  const [elements, setElements] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const getPlayers = async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      // console.log(data.result);
+      setElements(data.result[0].players);
+      setLoading(false);
+    };
+
+    // setResults(elements);
+
+    getPlayers();
+  }, []);
+  // console.log(results);
+
   return (
-    <Container>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </Container>
+    <>
+      <Buscador className="p-5" search={search} setSearch={setSearch} />
+      <br />
+      <Table responsive striped bordered>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Nro</th>
+            <th>
+              T.Rojas
+              <i className="bi bi-file-text-fill"></i>
+            </th>
+            <th>
+              T.Amarillas
+              <i className="bi bi-file-text"></i>
+            </th>
+            <th>Goles</th>
+            <th>
+              Ranking
+              <i className="bi bi-percent"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {elements
+            .filter((element) => {
+              return (
+                element.player_name
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) ||
+                element.player_age.includes(search) ||
+                element.player_number.includes(search) ||
+                element.player_goals.includes(search) ||
+                element.player_rating.includes(search)
+              );
+            })
+            .map((element) => (
+              <tr key={element.player_key}>
+                <td>{element.player_name}</td>
+                <td>{element.player_age}</td>
+                <td>{element.player_number}</td>
+                <td>{element.player_red_cards}</td>
+                <td>{element.player_yellow_cards}</td>
+                <td>{element.player_goals}</td>
+                <td>
+                  {element.player_rating}
+                  <i className="bi bi-percent"></i>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+    </>
   );
 };
