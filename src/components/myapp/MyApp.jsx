@@ -1,29 +1,28 @@
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
 
 import { useEffect, useState } from "react";
 import { Buscador } from "../buscador/Buscador";
-// import Spinner from "react-bootstrap/Spinner";
 
-export const MyApp = ({ url }) => {
-  const [loading, setLoading] = useState(true);
+export const MyApp = ({ url, loading, setLoading }) => {
   const [elements, setElements] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
+    //----- Función para consumir la API, que se renderizará cuando el componente ya esté desarrollandose
     const getPlayers = async () => {
       const res = await fetch(url);
       const data = await res.json();
-      // console.log(data.result);
-      setElements(data.result[0].players);
+      const dataOrganizada = data.result[0].players.sort(
+        (a, b) => -a.player_rating.localeCompare(b.player_rating)
+      );
+
+      setElements(dataOrganizada);
+
       setLoading(false);
     };
 
-    // setResults(elements);
-
     getPlayers();
   }, []);
-  // console.log(results);
 
   return (
     <>

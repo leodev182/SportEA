@@ -72,7 +72,7 @@ function App() {
         )}
       </div>
       <div className="footBall">
-        <MyApp url={urlApi} />
+        <MyApp url={urlApi} loading={loading} setLoading={setLoading} />
       </div>
       <div className="baseBall"></div>
       <div className=""></div>
