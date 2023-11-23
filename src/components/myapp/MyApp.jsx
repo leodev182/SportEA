@@ -1,5 +1,5 @@
 import Table from "react-bootstrap/Table";
-
+import Spinner from "react-bootstrap/Spinner";
 import { useEffect, useState } from "react";
 import { Buscador } from "../buscador/Buscador";
 
@@ -28,56 +28,60 @@ export const MyApp = ({ url, loading, setLoading }) => {
     <>
       <Buscador className="p-5" search={search} setSearch={setSearch} />
       <br />
-      <Table responsive striped bordered>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Nro</th>
-            <th>
-              T.Rojas
-              <i className="bi bi-file-text-fill"></i>
-            </th>
-            <th>
-              T.Amarillas
-              <i className="bi bi-file-text"></i>
-            </th>
-            <th>Goles</th>
-            <th>
-              Ranking
-              <i className="bi bi-percent"></i>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {elements
-            .filter((element) => {
-              return (
-                element.player_name
-                  .toLowerCase()
-                  .includes(search.toLowerCase()) ||
-                element.player_age.includes(search) ||
-                element.player_number.includes(search) ||
-                element.player_goals.includes(search) ||
-                element.player_rating.includes(search)
-              );
-            })
-            .map((element) => (
-              <tr key={element.player_key}>
-                <td>{element.player_name}</td>
-                <td>{element.player_age}</td>
-                <td>{element.player_number}</td>
-                <td>{element.player_red_cards}</td>
-                <td>{element.player_yellow_cards}</td>
-                <td>{element.player_goals}</td>
-                <td>
-                  {element.player_rating}
-                  <i className="bi bi-percent"></i>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
+      {loading ? (
+        <Spinner animation="border" variant="primary" />
+      ) : (
+        <Table responsive striped bordered>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Nro</th>
+              <th>
+                T.Rojas
+                <i className="bi bi-file-text-fill"></i>
+              </th>
+              <th>
+                T.Amarillas
+                <i className="bi bi-file-text"></i>
+              </th>
+              <th>Goles</th>
+              <th>
+                Ranking
+                <i className="bi bi-percent"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {elements
+              .filter((element) => {
+                return (
+                  element.player_name
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                  element.player_age.includes(search) ||
+                  element.player_number.includes(search) ||
+                  element.player_goals.includes(search) ||
+                  element.player_rating.includes(search)
+                );
+              })
+              .map((element) => (
+                <tr key={element.player_key}>
+                  <td>{element.player_name}</td>
+                  <td>{element.player_age}</td>
+                  <td>{element.player_number}</td>
+                  <td>{element.player_red_cards}</td>
+                  <td>{element.player_yellow_cards}</td>
+                  <td>{element.player_goals}</td>
+                  <td>
+                    {element.player_rating}
+                    <i className="bi bi-percent"></i>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      )}
     </>
   );
 };
